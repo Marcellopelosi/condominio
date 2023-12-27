@@ -24,6 +24,13 @@ def rendiconto(millesimi, registro):
     rendiconto["saldo"] = rendiconto["versamenti effettuati"] - rendiconto["totale"]
     return rendiconto
 
+def mostra_bilancio(registro):
+    tot_versamenti = registro[registro["versamento/spesa"] == "versamento"][["importo", "categoria"]].groupby("categoria").sum()
+    tot_spese = registro[registro["versamento/spesa"] == "spesa"][["importo", "categoria"]].groupby("categoria").sum()
+    bilancio = tot_versamenti.join(tot_spese, lsuffix = " versamenti", rsuffix = " spese")
+    bilancio["saldo"] = bilancio["importo versamenti"] - bilancio["importo spese"]
+    return bilancio
+
 def main():
     st.title('Creazione Rendiconto')
 
@@ -43,6 +50,11 @@ def main():
         # Mostra il risultato come tabella
         st.header('Risultato - Rendiconto')
         st.write(risultato_rendiconto)
+
+        st.header('Bilancio per ogni spesa')
+        st.write(mostra_bilancio(registro))
+
+        
 
         # Pulsante per scaricare il risultato come file Excel
         st.header('Scaricare il Risultato')
