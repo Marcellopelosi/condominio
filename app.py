@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 def caricare_file(nome_file):
     dati = pd.read_excel(nome_file)
