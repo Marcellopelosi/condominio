@@ -55,7 +55,7 @@ def main():
         st.write(mostra_bilancio(dati_registro))
 
         scelta_nome = st.selectbox('Seleziona un condomino:', dati_millesimi.nominativi.unique())
-        st.write(registro[registro["nominativi"] == scelta_nome])
+        st.write(dati_registro[dati_registro["nominativi"] == scelta_nome])
 
         # # Pulsante per scaricare il risultato come file Excel
         # st.header('Scaricare il Risultato')
