@@ -52,7 +52,7 @@ def main():
         st.write(risultato_rendiconto)
 
         st.header('Bilancio per ogni spesa')
-        st.write(mostra_bilancio(registro))
+        st.write(mostra_bilancio(file_registro))
 
         
 
