@@ -50,7 +50,7 @@ def main():
 
 def get_table_download_link(df):
     # Funzione per creare un link per scaricare un dataframe come file Excel
-    excel_file = df.to_excel(index=False)
+    excel_file = df.to_excel("risultato_rendiconto.xlsx", index=False)
     return f'<a href="data:application/octet-stream;base64,{excel_file}" download="risultato_rendiconto.xlsx">Scarica file Excel</a>'
 
 if __name__ == "__main__":
