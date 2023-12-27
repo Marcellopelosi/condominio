@@ -32,7 +32,7 @@ def mostra_bilancio(registro):
     return bilancio
 
 def main():
-    st.title('Creazione Rendiconto')
+    st.title('Gestione Condominio')
 
     # Sezione per caricare i file
     st.header('Caricare i File')
