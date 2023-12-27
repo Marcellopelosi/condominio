@@ -54,11 +54,12 @@ def main():
         st.header('Bilancio per ogni spesa')
         st.write(mostra_bilancio(dati_registro))
 
-        
+        scelta_nome = st.selectbox('Seleziona un condomino:', dati_millesimi.nominativi.unique())
+        st.write(registro[registro["nominativi"] == scelta_nome])
 
-        # Pulsante per scaricare il risultato come file Excel
-        st.header('Scaricare il Risultato')
-        st.markdown(get_table_download_link(risultato_rendiconto), unsafe_allow_html=True)
+        # # Pulsante per scaricare il risultato come file Excel
+        # st.header('Scaricare il Risultato')
+        # st.markdown(get_table_download_link(risultato_rendiconto), unsafe_allow_html=True)
 
 def get_table_download_link(df):
     # Funzione per creare un link per scaricare un dataframe come file Excel
