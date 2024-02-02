@@ -21,7 +21,7 @@ def rendiconto(millesimi, registro):
     rendiconto["totale"] = np.sum(rendiconto[importo_features].values, axis = 1)
     versamenti_per_condomino = registro[registro["versamento/spesa"]=="versamento"][["importo", "nominativi"]].groupby("nominativi").sum().to_dict()["importo"]
     rendiconto["versamenti effettuati"] = rendiconto["nominativi"].apply(lambda x: versamenti_per_condomino[x])
-    rendiconto["saldo"] = rendiconto["versamenti effettuati"] - rendiconto["totale"]
+    rendiconto["saldo"] = rendiconto["versamenti effettuati"] - rendiconto["totale"] + rendiconto["Saldo Precedente"]
     return rendiconto
 
 def mostra_bilancio(registro):
