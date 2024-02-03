@@ -13,6 +13,15 @@ def balance_sheet(registry):
     balance["saldo"] = balance["importo versamenti"] - balance["importo spese"]
     return balance
 
+def rapporto_con_le_aziende(registry):
+  con_le_aziende = df[df["versamento/spesa"] == "spesa"].groupby("nominativi")["importo"].sum().to_frame()
+  con_le_aziende.columns = ["importo spese"]
+  pagamenti_aziende = df[df["versamento/spesa"] == "pagamento"].groupby("nominativi")["importo"].sum().to_frame()
+  pagamenti_aziende.columns = ["importo pagamenti"]
+  con_le_aziende = con_le_aziende.join(pagamenti_aziende)
+  con_le_aziende["saldo"] = con_le_aziende["importo spese"] - con_le_aziende["importo pagamenti"]
+  return con_le_aziende
+
 def financial_statement(millesimi, registry):
     statement = millesimi.copy()
     total_expenses_dict = registry[registry["versamento/spesa"] == "spesa"][["importo", "categoria"]].groupby("categoria").sum().to_dict()
@@ -48,6 +57,10 @@ def main():
         st.header('Bilancio per ogni spesa')
         result_balance_sheet = balance_sheet(registry_data)
         st.dataframe(result_balance_sheet)
+
+        st.header('Rapporto con le aziende')
+        con_le_aziende = rapporto_con_le_aziende(registry_data)
+        st.dataframe(con_le_aziende)
 
         resident_choice = st.selectbox('Seleziona un condomino:', millesimi_data.nominativi.unique())
         st.write(registry_data[registry_data["nominativi"] == resident_choice])
