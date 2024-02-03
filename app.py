@@ -13,7 +13,7 @@ def balance_sheet(registry):
     balance["saldo"] = balance["importo versamenti"] - balance["importo spese"]
     return balance
 
-def rapporto_con_le_aziende(registry):
+def rapporto_con_le_aziende(df):
   con_le_aziende = df[df["versamento/spesa"] == "spesa"].groupby("nominativi")["importo"].sum().to_frame()
   con_le_aziende.columns = ["importo spese"]
   pagamenti_aziende = df[df["versamento/spesa"] == "pagamento"].groupby("nominativi")["importo"].sum().to_frame()
